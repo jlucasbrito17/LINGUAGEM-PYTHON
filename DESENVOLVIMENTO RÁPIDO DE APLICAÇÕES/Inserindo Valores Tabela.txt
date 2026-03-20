@@ -1,0 +1,27 @@
+def insert_table(connection, query):
+    connection.autocommit = True
+    try:
+        cursor = connection.cursor()
+        print("Valores inseridos com sucesso!")
+        cursor.close()
+    except OperationalError as e:
+        print(f"O erro '{e}' ocorreu")
+
+
+# Conexão com o banco de dados TrabalhoRad
+
+connection = create_connection("postgres", "postgres", "122436","localhost", "5432")
+
+table_insert_Conta = """INSERT INTO Conta (Agencia, Numero, Saldo, Gerente, Titular)
+VALUES (5555555, 33333, 555555, 'Paulo', 'Carlos')
+"""
+
+table_insert_Pessoa = """INSERT INTO Pessoa (CPF, Primeiro_Nome, Nome_Do_Meio, Sobrenome, Nacionalidade, Conta)
+VALUES ('123.456.789-00', 'Fulano', 'Silva', 'Cicrano', 'Brasileiro', 5555555)
+"""
+
+insert_table(connection, table_insert_Conta)
+insert_table(connection, table_insert_Pessoa)
+
+
+connection.close()
